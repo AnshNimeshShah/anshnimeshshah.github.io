@@ -125,8 +125,8 @@ export default function Home() {
               <ArrowRight size={13} className="ml-2" />
             </Link>
             <a
-              href="/ Ansh Nimesh Shahe.pdf"
-              download=" Ansh Nimesh Shahe.pdf"
+              href="/  Ansh Nimesh Shah.pdf"
+              download="  Ansh Nimesh Shah.pdf"
               className="inline-flex items-center px-5 py-3 bg-white border border-stone-300 text-stone-800 hover:bg-stone-50 transition-all font-mono text-xs font-bold tracking-wider"
             >
               DOWNLOAD RESUME
