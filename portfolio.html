@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansh Nimesh Shah | Portfolio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+        :root {
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            scroll-behavior: smooth;
+        }
+
+        .font-serif {
+            font-family: var(--font-serif);
+        }
+
+        .section-padding {
+            padding: 5rem 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .section-padding {
+                padding: 8rem 3rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+            }
+            .print-shadow-none {
+                box-shadow: none !important;
+            }
+            .print-p-0 {
+                padding: 0 !important;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 no-print">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <a href="#/" class="text-xl font-bold tracking-tight text-slate-900">
+                ANSH NIMESH <span class="text-indigo-600">SHAH</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
+                <!-- Links injected by JS -->
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden p-2 text-slate-600" id="mobile-menu-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div class="hidden md:hidden bg-white border-b border-slate-200 px-6 py-8 space-y-4" id="mobile-nav">
+            <!-- Links injected by JS -->
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="app-root" class="pt-20">
+        <!-- Content injected by JS -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-12 px-6 md:px-12 no-print">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-slate-500 text-sm">
+                © <span id="current-year"></span> Ansh Nimesh Shah. All rights reserved.
+            </div>
+            <div class="flex space-x-6">
+                <a href="https://www.linkedin.com/in/ansh-shah1/" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-600 transition-colors">LinkedIn</a>
+                <a href="mailto:anshnshah1007@gmail.com" class="text-slate-400 hover:text-indigo-600 transition-colors">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // State Management
+        const state = {
+            currentPath: window.location.hash || '#/',
+            isMobileMenuOpen: false
+        };
+
+        const navLinks = [
+            { name: 'Home', path: '#/' },
+            { name: 'About', path: '#/about' },
+            { name: 'Projects', path: '#/projects' },
+            { name: 'Certifications', path: '#/certifications' },
+            { name: 'Achievements', path: '#/achievements' }
+        ];
+
+        // Router
+        function navigate(path) {
+            window.location.hash = path;
+            state.currentPath = path;
+            render();
+            window.scrollTo(0, 0);
+        }
+
+        window.addEventListener('hashchange', () => {
+            state.currentPath = window.location.hash || '#/';
+            render();
+            window.scrollTo(0, 0);
+        });
+
+        // Components
+        const Home = () => `
+            <div class="flex flex-col relative overflow-hidden">
+                <div class="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.05]">
+                    <div class="absolute top-20 left-[10%] text-slate-400"><i data-lucide="trending-up" style="width: 120px; height: 120px;"></i></div>
+                    <div class="absolute bottom-40 right-[5%] text-slate-400"><i data-lucide="bar-chart-3" style="width: 160px; height: 160px;"></i></div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400"><i data-lucide="dollar-sign" style="width: 400px; height: 400px;"></i></div>
+                </div>
+
+                <section class="section-padding flex flex-col items-center text-center min-h-[80vh] justify-center relative z-10">
+                    <h1 class="text-5xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tight fade-in">Ansh Nimesh Shah</h1>
+                    <p class="text-xl md:text-2xl text-slate-600 mb-10 max-w-2xl font-light fade-in" style="animation-delay: 0.1s">Finance Student | Aspiring Investment Analyst</p>
+                    
+                    <div class="flex flex-wrap justify-center gap-4 fade-in" style="animation-delay: 0.2s">
+                        <a href="#/resume" class="inline-flex items-center px-8 py-4 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">View Resume</a>
+                        <a href="https://www.linkedin.com/in/ansh-shah1/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-xl font-semibold hover:bg-slate-50 transition-all">
+                            <i data-lucide="linkedin" class="mr-2" size="20"></i> LinkedIn
+                        </a>
+                    </div>
+
+                    <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl fade-in" style="animation-delay: 0.4s">
+                        <a href="#/projects" class="group p-8 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all text-left">
+                            <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                <i data-lucide="briefcase"></i>
+                            </div>
+                            <h3 class="text-lg font-bold mb-2">Projects</h3>
+                            <p class="text-slate-500 text-sm mb-4">DCF Valuations, Financial Analysis & Dashboards.</p>
+                            <span class="text-indigo-600 font-semibold text-sm inline-flex items-center">View Projects <i data-lucide="arrow-right" class="ml-1" size="16"></i></span>
+                        </a>
+
+                        <a href="#/certifications" class="group p-8 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all text-left">
+                            <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                <i data-lucide="award"></i>
+                            </div>
+                            <h3 class="text-lg font-bold mb-2">Certifications</h3>
+                            <p class="text-slate-500 text-sm mb-4">Stock Market, Finance & Analytics credentials.</p>
+                            <span class="text-emerald-600 font-semibold text-sm inline-flex items-center">View Certs <i data-lucide="arrow-right" class="ml-1" size="16"></i></span>
+                        </a>
+
+                        <a href="#/achievements" class="group p-8 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all text-left">
+                            <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 mb-6 group-hover:bg-amber-600 group-hover:text-white transition-colors">
+                                <i data-lucide="graduation-cap"></i>
+                            </div>
+                            <h3 class="text-lg font-bold mb-2">Achievements</h3>
+                            <p class="text-slate-500 text-sm mb-4">Academic honors and extracurricular success.</p>
+                            <span class="text-amber-600 font-semibold text-sm inline-flex items-center">View More <i data-lucide="arrow-right" class="ml-1" size="16"></i></span>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="bg-white border-y border-slate-100">
+                    <div class="section-padding">
+                        <div class="max-w-3xl mx-auto text-center">
+                            <h2 class="text-3xl font-bold mb-8">Professional Summary</h2>
+                            <p class="text-lg text-slate-600 leading-relaxed italic font-serif">
+                                "I am a B.Com (Honours) in Strategic Finance student pursuing internship opportunities in Equity Research, Investment Banking, and Corporate Finance. Built an integrated three-statement DCF valuation model and a DuPont-based financial statement analysis, translating raw financials into actionable investment recommendations. Proficient in Excel-based financial modelling, ratio analysis, and portfolio benchmarking against the NIFTY 50 — most recently applied through Meredian, a self-built equity research platform."
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        `;
+
+        const About = () => `
+            <div class="section-padding">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-4xl font-bold mb-12 fade-in">About Me</h1>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <div class="md:col-span-2 space-y-12">
+                            <section class="fade-in" style="animation-delay: 0.1s">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i data-lucide="book-open" size="20"></i></div>
+                                    <h2 class="text-2xl font-bold">Professional Summary</h2>
+                                </div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    I am a B.Com (Honours) in Strategic Finance student pursuing internship opportunities in Equity Research, Investment Banking, and Corporate Finance. Built an integrated three-statement DCF valuation model and a DuPont-based financial statement analysis, translating raw financials into actionable investment recommendations. Proficient in Excel-based financial modelling, ratio analysis, and portfolio benchmarking against the NIFTY 50 — most recently applied through Meredian, a self-built equity research platform.
+                                </p>
+                            </section>
+
+                            <section class="fade-in" style="animation-delay: 0.2s">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i data-lucide="graduation-cap" size="20"></i></div>
+                                    <h2 class="text-2xl font-bold">Education</h2>
+                                </div>
+                                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                                    <h3 class="text-lg font-bold">Jain Deemed-to-be University</h3>
+                                    <p class="text-indigo-600 font-medium mb-2">Bachelor of Commerce Honors in Strategic Finance</p>
+                                    <div class="flex justify-between text-sm text-slate-500 mb-4">
+                                        <span>2025 - Current</span>
+                                        <span class="font-bold text-slate-900">Cumulative GPA: 7.4</span>
+                                    </div>
+                                    <div class="pt-4 border-t border-slate-50">
+                                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Relevant Coursework</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-3 py-1 bg-slate-50 text-slate-600 rounded-full text-xs">Corporate Finance</span>
+                                            <span class="px-3 py-1 bg-slate-50 text-slate-600 rounded-full text-xs">Financial Accounting</span>
+                                            <span class="px-3 py-1 bg-slate-50 text-slate-600 rounded-full text-xs">Business Economics</span>
+                                            <span class="px-3 py-1 bg-slate-50 text-slate-600 rounded-full text-xs">Investment Analysis</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="fade-in" style="animation-delay: 0.3s">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg"><i data-lucide="target" size="20"></i></div>
+                                    <h2 class="text-2xl font-bold">Leadership & Roles</h2>
+                                </div>
+                                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                                    <h3 class="text-lg font-bold">Placement & Internship Forum (SCAPS), Jain University</h3>
+                                    <p class="text-indigo-600 font-medium mb-4 italic">Business Development Team – SAMARTHYA 2026</p>
+                                    <p class="text-slate-600 leading-relaxed">
+                                        I was a part of the BD team for SAMARTHYA 2026, SCAPS's first-ever event. I actively sourced and cold-outreached finance companies, resulting in the participation of 60 companies for a 2-day fair attended by ~1,000 students. I also managed on-spot student registration and floor coordination, ensuring smooth execution throughout the event.
+                                    </p>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="space-y-8 fade-in" style="animation-delay: 0.4s">
+                            <div class="sticky top-32">
+                                <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                                    <i data-lucide="award" class="text-indigo-600"></i> Key Skills
+                                </h2>
+                                <div class="space-y-6">
+                                    <div>
+                                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Financial Skills</h3>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Financial Modelling</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Three-Statement Modelling</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">DCF Valuation</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Scenario & Sensitivity Analysis</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Financial Statement Analysis</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Ratio Analysis</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Equity Research</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Investment Analysis</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Forecasting</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Risk Assessment</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Technical Skills</h3>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Microsoft Excel (Sensitivity Analysis, Data Visualization)</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">AI Automation</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Workflow Automation</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Prompt Engineering</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">GitHub Actions</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">Data Integration</span>
+                                            <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm shadow-sm">GitHub</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const Projects = () => `
+            <div class="section-padding">
+                <div class="max-w-5xl mx-auto">
+                    <header class="mb-16 fade-in">
+                        <h1 class="text-4xl font-bold mb-4">Finance & Analytics Projects</h1>
+                        <p class="text-slate-600 max-w-2xl">A collection of my work in financial modeling, equity research, and data-driven investment analysis.</p>
+                    </header>
+
+                    <div class="grid grid-cols-1 gap-12">
+                        <!-- Project 1 -->
+                        <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col md:flex-row fade-in" style="animation-delay: 0.1s">
+                            <div class="p-8 md:w-1/3 bg-slate-50 flex flex-col justify-center items-center text-center border-b md:border-b-0 md:border-r border-slate-100">
+                                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-blue-600"><i data-lucide="globe"></i></div>
+                                <div class="flex flex-wrap justify-center gap-2">
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">React</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Vite</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Tailwind CSS</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">AI Integration</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Data Vis</span>
+                                </div>
+                            </div>
+                            <div class="p-8 md:w-2/3 flex flex-col">
+                                <h2 class="text-2xl font-bold text-slate-900 mb-4">Meredian – AI-Assisted Equity Research Platform</h2>
+                                <p class="text-slate-600 mb-6 leading-relaxed">Designed and built a web-based equity analysis platform delivering company research, valuation insights, and financial data visualization for retail investors.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-auto">
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Key Insights</h4>
+                                        <p class="text-sm text-slate-700">Owned end-to-end product direction — architecture, feature design, UI/UX workflow, testing, and deployment.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Outcomes</h4>
+                                        <p class="text-sm text-slate-700">Used AI-assisted development tools to accelerate build velocity while directing every design and product decision.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col md:flex-row fade-in" style="animation-delay: 0.15s">
+                            <div class="p-8 md:w-1/3 bg-slate-50 flex flex-col justify-center items-center text-center border-b md:border-b-0 md:border-r border-slate-100">
+                                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-indigo-600"><i data-lucide="trending-up"></i></div>
+                                <div class="flex flex-wrap justify-center gap-2">
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Excel</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">DCF Modeling</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Sensitivity Analysis</span>
+                                </div>
+                            </div>
+                            <div class="p-8 md:w-2/3 flex flex-col">
+                                <h2 class="text-2xl font-bold text-slate-900 mb-4">Equity Valuation – Infosys Ltd. (Three-Statement DCF Model)</h2>
+                                <p class="text-slate-600 mb-6 leading-relaxed">Built an integrated three-statement financial model (Income Statement, Balance Sheet, Cash Flow Statement) for Infosys (NSE), dynamically linking statements to drive an assumption-based DCF valuation.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-auto">
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Key Insights</h4>
+                                        <p class="text-sm text-slate-700">Modeled scenario and sensitivity analysis across 6–10% revenue growth, 10% WACC, and 4% terminal growth assumptions.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Outcomes</h4>
+                                        <p class="text-sm text-slate-700">Estimated intrinsic value of ₹1,319 (vs. ₹1,297 market price, ~1.7% variance) with a fair value range of ₹1,200–₹1,500.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3 -->
+                        <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col md:flex-row fade-in" style="animation-delay: 0.2s">
+                            <div class="p-8 md:w-1/3 bg-slate-50 flex flex-col justify-center items-center text-center border-b md:border-b-0 md:border-r border-slate-100">
+                                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-emerald-600"><i data-lucide="bar-chart-3"></i></div>
+                                <div class="flex flex-wrap justify-center gap-2">
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">DuPont Analysis</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Ratio Analysis</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Investment Memo</span>
+                                </div>
+                            </div>
+                            <div class="p-8 md:w-2/3 flex flex-col">
+                                <h2 class="text-2xl font-bold text-slate-900 mb-4">Financial Statement Analysis – Wipro Ltd.</h2>
+                                <p class="text-slate-600 mb-6 leading-relaxed">Analyzed FY21–FY23 financials via DuPont decomposition, identifying 29% ROE driven by an 18% net margin and conservative 0.09x D/E leverage (current ratio: 2.4x).</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-auto">
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Key Insights</h4>
+                                        <p class="text-sm text-slate-700">Benchmarked ratios against IT sector averages to identify operational efficiency and capital structure stability.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Outcomes</h4>
+                                        <p class="text-sm text-slate-700">Synthesized findings into a structured investment memo with a Hold recommendation supported by margin-trend and balance-sheet analysis.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 4 -->
+                        <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col md:flex-row fade-in" style="animation-delay: 0.25s">
+                            <div class="p-8 md:w-1/3 bg-slate-50 flex flex-col justify-center items-center text-center border-b md:border-b-0 md:border-r border-slate-100">
+                                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-purple-600"><i data-lucide="cpu"></i></div>
+                                <div class="flex flex-wrap justify-center gap-2">
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Gemini API</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">GitHub Actions</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Prompt Eng</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Automation</span>
+                                </div>
+                            </div>
+                            <div class="p-8 md:w-2/3 flex flex-col">
+                                <h2 class="text-2xl font-bold text-slate-900 mb-4">AI-Powered Internship Outreach Automation</h2>
+                                <p class="text-slate-600 mb-6 leading-relaxed">Designed and deployed an AI-assisted outreach automation workflow, generating personalized recruiter emails via the Gemini API and using GitHub Actions to schedule and run outreach campaigns automatically.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-auto">
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Key Insights</h4>
+                                        <p class="text-sm text-slate-700">Integrated recruiter and company datasets into the automation pipeline and engineered prompts to personalize outreach at scale.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Outcomes</h4>
+                                        <p class="text-sm text-slate-700">Owned the end-to-end workflow, reducing time spent on repetitive manual email drafting and applying a process optimization lens to a real internship-search bottleneck.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 5 -->
+                        <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col md:flex-row fade-in" style="animation-delay: 0.3s">
+                            <div class="p-8 md:w-1/3 bg-slate-50 flex flex-col justify-center items-center text-center border-b md:border-b-0 md:border-r border-slate-100">
+                                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:scale-110 transition-transform text-amber-600"><i data-lucide="pie-chart"></i></div>
+                                <div class="flex flex-wrap justify-center gap-2">
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Excel</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Pivot Tables</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Portfolio Tracking</span>
+                                    <span class="px-3 py-1 bg-white border border-slate-200 text-slate-500 rounded-full text-xs font-medium">Data Vis</span>
+                                </div>
+                            </div>
+                            <div class="p-8 md:w-2/3 flex flex-col">
+                                <h2 class="text-2xl font-bold text-slate-900 mb-4">Portfolio Analytics Dashboard – Excel</h2>
+                                <p class="text-slate-600 mb-6 leading-relaxed">Built a dynamic Excel dashboard tracking a 15-stock simulated equity portfolio's returns, sector allocation, and position sizing over 6 months.</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-auto">
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Key Insights</h4>
+                                        <p class="text-sm text-slate-700">Benchmarked 12.4% portfolio CAGR against the NIFTY 50's 10.2%.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Outcomes</h4>
+                                        <p class="text-sm text-slate-700">Attributed outperformance to sector- and stock-level allocation decisions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const Certifications = () => `
+            <div class="section-padding">
+                <div class="max-w-6xl mx-auto">
+                    <h1 class="text-4xl font-bold mb-12 fade-in">Certifications</h1>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all fade-in" style="animation-delay: 0.1s">
+                            <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6"><i data-lucide="award"></i></div>
+                            <h3 class="text-xl font-bold mb-2">Basics of Stock Market</h3>
+                            <p class="text-indigo-600 font-medium text-sm mb-4">Varsity by Zerodha</p>
+                            <p class="text-slate-500 text-sm mb-6">Comprehensive understanding of market mechanics, technical analysis, and fundamental principles.</p>
+                            <a href="#/certificate" class="text-indigo-600 font-bold text-sm inline-flex items-center hover:underline">View Certificate <i data-lucide="external-link" class="ml-1" size="14"></i></a>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all fade-in" style="animation-delay: 0.2s">
+                            <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 mb-6"><i data-lucide="award"></i></div>
+                            <h3 class="text-xl font-bold mb-2">Trading in Stocks and Currencies</h3>
+                            <p class="text-emerald-600 font-medium text-sm mb-4">Coursera</p>
+                            <p class="text-slate-500 text-sm mb-6">Advanced strategies for equity and forex markets, focusing on risk management and execution.</p>
+                            <a href="#/certificate-coursera" class="text-emerald-600 font-bold text-sm inline-flex items-center hover:underline">View Certificate <i data-lucide="external-link" class="ml-1" size="14"></i></a>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all fade-in" style="animation-delay: 0.3s">
+                            <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center text-teal-600 mb-6"><i data-lucide="award"></i></div>
+                            <h3 class="text-xl font-bold mb-2">McKinsey Forward Program</h3>
+                            <p class="text-teal-600 font-medium text-sm mb-4">McKinsey & Company</p>
+                            <p class="text-slate-500 text-sm mb-6">An intensive virtual learning journey focusing on core leadership, business, digital, and analytical skills, including structured problem-solving.</p>
+                            <a href="./Forward20260629-31-e8jc2e.pdf" target="_blank" rel="noopener noreferrer" class="text-teal-600 font-bold text-sm inline-flex items-center hover:underline">View PDF Certificate <i data-lucide="external-link" class="ml-1" size="14"></i></a>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all fade-in" style="animation-delay: 0.4s">
+                            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 mb-6"><i data-lucide="file-text"></i></div>
+                            <h3 class="text-xl font-bold mb-2">Corporate Financial Statement Analysis (2023)</h3>
+                            <p class="text-blue-600 font-medium text-sm mb-4">Professional Coursework</p>
+                            <p class="text-slate-500 text-sm mb-6">Advanced techniques in modeling three-statement financial models, ratio calculations, and valuation drivers.</p>
+                            <a href="./Corporate%20Financial%20Statement%20Analysis%202023.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-bold text-sm inline-flex items-center hover:underline">View PDF Certificate <i data-lucide="external-link" class="ml-1" size="14"></i></a>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all fade-in" style="animation-delay: 0.5s">
+                            <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600 mb-6"><i data-lucide="calculator"></i></div>
+                            <h3 class="text-xl font-bold mb-2">Financial Accounting Foundations</h3>
+                            <p class="text-amber-600 font-medium text-sm mb-4">Foundational Series</p>
+                            <p class="text-slate-500 text-sm mb-6">Core mechanics of corporate accounting: income statements, balances sheets, cash flow statements, and double entries.</p>
+                            <a href="./Financial%20Accounting%20Foundations.pdf" target="_blank" rel="noopener noreferrer" class="text-amber-600 font-bold text-sm inline-flex items-center hover:underline">View PDF Certificate <i data-lucide="external-link" class="ml-1" size="14"></i></a>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all fade-in" style="animation-delay: 0.6s">
+                            <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-violet-600 mb-6"><i data-lucide="book-open"></i></div>
+                            <h3 class="text-xl font-bold mb-2">Reading Corporate Financial Statements</h3>
+                            <p class="text-violet-600 font-medium text-sm mb-4">Analytical Series</p>
+                            <p class="text-slate-500 text-sm mb-6">Practical methodologies for interpreting footnotes, management notes, and evaluating the quality of earnings.</p>
+                            <a href="./Reading%20Corporate%20Financial%20Statements.pdf" target="_blank" rel="noopener noreferrer" class="text-violet-600 font-bold text-sm inline-flex items-center hover:underline">View PDF Certificate <i data-lucide="external-link" class="ml-1" size="14"></i></a>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all fade-in" style="animation-delay: 0.7s">
+                            <div class="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center text-rose-600 mb-6"><i data-lucide="line-chart"></i></div>
+                            <h3 class="text-xl font-bold mb-2">Guide to Understanding Financial Statements</h3>
+                            <p class="text-rose-600 font-medium text-sm mb-4">Valuation Frameworks</p>
+                            <p class="text-slate-500 text-sm mb-6">A comprehensive, structured study of analyzing business operations, dissecting margins, and assessing leverage.</p>
+                            <a href="./Guide%20to%20Understanding%20Financial%20Statements.pdf" target="_blank" rel="noopener noreferrer" class="text-rose-600 font-bold text-sm inline-flex items-center hover:underline">View PDF Certificate <i data-lucide="external-link" class="ml-1" size="14"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const Achievements = () => `
+            <div class="section-padding">
+                <div class="max-w-4xl mx-auto">
+                    <header class="mb-16 fade-in">
+                        <h1 class="text-4xl font-bold mb-4">Achievements</h1>
+                        <p class="text-slate-600 max-w-2xl">A record of my academic honors, competitive successes, and professional milestones.</p>
+                    </header>
+
+                    <div class="relative border-l-2 border-slate-100 ml-4 md:ml-8 pl-8 md:pl-12 space-y-12">
+                        <div class="relative fade-in" style="animation-delay: 0.1s">
+                            <div class="absolute -left-[41px] md:-left-[57px] top-0 w-6 h-6 bg-white border-4 border-indigo-600 rounded-full shadow-sm"></div>
+                            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                                    <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-full uppercase tracking-wider">Competitive</span>
+                                    <div class="flex items-center gap-2 text-sm text-slate-400"><i data-lucide="calendar" size="16"></i><span>2025</span></div>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 flex items-center gap-2"><i data-lucide="trophy" class="text-amber-500"></i> 2nd Runner Up - Jain University Entrepreneurship Week</h3>
+                                <p class="text-slate-600 leading-relaxed">Recognized for innovative business strategy and entrepreneurial pitching during the annual university-wide competition.</p>
+                            </div>
+                        </div>
+                        <div class="relative fade-in" style="animation-delay: 0.2s">
+                            <div class="absolute -left-[41px] md:-left-[57px] top-0 w-6 h-6 bg-white border-4 border-indigo-600 rounded-full shadow-sm"></div>
+                            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                                    <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-full uppercase tracking-wider">Professional</span>
+                                    <div class="flex items-center gap-2 text-sm text-slate-400"><i data-lucide="calendar" size="16"></i><span>2025</span></div>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 flex items-center gap-2"><i data-lucide="award" class="text-indigo-600"></i> Portfolio Performance Benchmark</h3>
+                                <p class="text-slate-600 leading-relaxed">Successfully benchmarked a personal equity portfolio achieving a CAGR of 12.4%, outperforming the NIFTY 50 (10.2%).</p>
+                            </div>
+                        </div>
+                        <div class="relative fade-in" style="animation-delay: 0.3s">
+                            <div class="absolute -left-[41px] md:-left-[57px] top-0 w-6 h-6 bg-white border-4 border-indigo-600 rounded-full shadow-sm"></div>
+                            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                                <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                                    <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-full uppercase tracking-wider">Academic</span>
+                                    <div class="flex items-center gap-2 text-sm text-slate-400"><i data-lucide="calendar" size="16"></i><span>2025 - Present</span></div>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 flex items-center gap-2"><i data-lucide="graduation-cap" class="text-emerald-600"></i> Academic Excellence - GPA 7.4</h3>
+                                <p class="text-slate-600 leading-relaxed">Maintained a strong cumulative GPA of 7.4 in Bachelor of Commerce Honors (Strategic Finance) at Jain University.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const Certificate = () => {
+            const isCoursera = state.currentPath === '#/certificate-coursera';
+            
+            const certData = {
+                title: isCoursera ? 'Trading in Stocks and Currencies' : 'Basics of Stock Market',
+                issuer: isCoursera ? 'Coursera' : 'Varsity',
+                logo: isCoursera ? 'C' : 'V',
+                verificationId: isCoursera ? 'COUR-2025-ANS-002' : 'VAR-2025-ANS-001',
+                sign1: isCoursera ? 'COURSERA INSTRUCTOR' : 'NITHIN KAMATH',
+                sign1Title: isCoursera ? 'Verified Professional' : 'Founder @Zerodha',
+                sign2: isCoursera ? 'UNIVERSITY PARTNER' : 'KARTHIK RANGAPPA',
+                sign2Title: isCoursera ? 'Academic Lead' : 'Chief of Education @Zerodha',
+                platform: isCoursera ? 'Coursera' : 'Zerodha Varsity Live'
+            };
+
+            return `
+                <div class="min-h-screen bg-slate-100 py-12 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-[1000px] mx-auto mb-8 flex justify-between items-center no-print">
+                        <a href="#/certifications" class="flex items-center text-slate-600 hover:text-indigo-600 transition-colors">
+                            <i data-lucide="arrow-left" class="mr-2" size="20"></i> Back to Certifications
+                        </a>
+                    </div>
+
+                    <div class="max-w-[1000px] mx-auto bg-white shadow-2xl relative overflow-hidden print:shadow-none print:m-0 fade-in" style="aspect-ratio: 1.414 / 1">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full -mr-32 -mt-32 opacity-50"></div>
+                        <div class="absolute bottom-0 left-0 w-96 h-96 bg-slate-50 rounded-full -ml-48 -mb-48 opacity-50"></div>
+                        
+                        <div class="relative h-full border-[16px] border-white p-12 flex flex-col">
+                            <div class="flex justify-between items-start mb-16">
+                                <div class="space-y-2">
+                                    <h1 class="text-5xl font-serif text-slate-900 tracking-tight">Certificate of</h1>
+                                    <h2 class="text-7xl font-bold text-indigo-900 tracking-tighter">Completion</h2>
+                                </div>
+                                <div class="flex items-center gap-8">
+                                    <div class="flex flex-col items-center">
+                                        <div class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl mb-1">${certData.logo}</div>
+                                        <span class="text-[10px] font-bold tracking-widest uppercase text-slate-400">${certData.issuer}</span>
+                                    </div>
+                                    <div class="h-16 w-px bg-slate-200"></div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-10 h-10 bg-indigo-900 rounded-full flex items-center justify-center text-white font-bold text-xs">JGi</div>
+                                        <div class="flex flex-col">
+                                            <span class="text-lg font-bold leading-none">JAIN</span>
+                                            <span class="text-[8px] font-medium tracking-tighter text-slate-500">DEEMED-TO-BE UNIVERSITY</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex-grow flex flex-col justify-center">
+                                <p class="text-xl text-slate-500 font-medium mb-4">This certificate is proudly presented to</p>
+                                <h3 class="text-6xl font-bold text-slate-900 mb-8 tracking-tight">ANSH NIMESH SHAH</h3>
+                                <div class="w-full h-px bg-slate-200 mb-8"></div>
+                                <p class="text-2xl text-slate-600 leading-relaxed max-w-3xl">
+                                    For successfully completing the <span class="font-bold text-slate-900">${certData.title}</span> program on ${certData.platform}
+                                </p>
+                            </div>
+
+                            <div class="mt-16 flex justify-between items-end">
+                                <div class="space-y-4">
+                                    <div class="w-48 h-px bg-slate-900"></div>
+                                    <div>
+                                        <p class="font-bold text-slate-900">${certData.sign1}</p>
+                                        <p class="text-xs text-slate-500">${certData.sign1Title}</p>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="w-48 h-px bg-slate-900"></div>
+                                    <div>
+                                        <p class="font-bold text-slate-900">${certData.sign2}</p>
+                                        <p class="text-xs text-slate-500">${certData.sign2Title}</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs font-bold text-slate-300 tracking-widest uppercase">Verification ID: ${certData.verificationId}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const Resume = () => `
+            <div class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-[800px] mx-auto mb-8 flex flex-wrap justify-between items-center no-print col-span-full gap-4">
+                    <a href="#/" class="flex items-center text-slate-600 hover:text-indigo-600 transition-colors font-medium">
+                        <i data-lucide="arrow-left" class="mr-2" size="18"></i> Back to Portfolio
+                    </a>
+                    <div class="flex items-center gap-3">
+                        <a href="./Ansh%20Nimesh%20Shah%20Resume.pdf" download="Ansh Nimesh Shah Resume.pdf" class="flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-sm font-bold shadow-sm hover:shadow-md transition-all cursor-pointer">
+                            <i data-lucide="download" size="16"></i> Download PDF
+                        </a>
+                        <button onclick="printResume()" class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-bold shadow-sm hover:shadow-md transition-all cursor-pointer">
+                            <i data-lucide="printer" size="16"></i> Print / Save via Browser
+                        </button>
+                    </div>
+                </div>
+
+                <div class="max-w-[800px] mx-auto bg-white shadow-2xl p-12 md:p-16 print-shadow-none print-p-0 fade-in">
+                    <header class="text-center border-b-2 border-slate-900 pb-8 mb-8">
+                        <h1 class="text-4xl font-bold text-slate-900 uppercase tracking-tight mb-2">Ansh Nimesh Shah</h1>
+                        <p class="text-sm text-slate-600 mb-4">Electronic City Phase 1, Bengaluru, Karnataka 560100 • +91 7338425285</p>
+                        <div class="flex justify-center gap-4 text-sm text-indigo-600 font-medium flex-wrap">
+                            <span class="whitespace-nowrap">anshnshah1007@gmail.com</span>
+                            <span>•</span>
+                            <a href="https://www.linkedin.com/in/ansh-shah1/" target="_blank" rel="noopener noreferrer">linkedin.com/in/ansh-shah1/</a>
+                            <span>•</span>
+                            <a href="https://anshnimeshshah.github.io" target="_blank" rel="noopener noreferrer">anshnimeshshah.github.io</a>
+                        </div>
+                    </header>
+
+                    <section class="mb-8">
+                        <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 mb-4">Profile</h2>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            I am a B.Com (Honours) in Strategic Finance student pursuing internship opportunities in Equity Research, Investment Banking, and Corporate Finance. Built an integrated three-statement DCF valuation model and a DuPont-based financial statement analysis, translating raw financials into actionable investment recommendations. Proficient in Excel-based financial modelling, ratio analysis, and portfolio benchmarking against the NIFTY 50 — most recently applied through Meredian, a self-built equity research platform.
+                        </p>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 mb-4">Education</h2>
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-bold text-slate-900 uppercase">Jain Deemed-to-be University, Bengaluru</h3>
+                                <p class="text-sm text-slate-700 italic">Bachelor of Commerce (Honours), Strategic Finance</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-slate-900">2025 - Present</p>
+                                <p class="text-sm text-slate-600">Cumulative GPA: 7.4</p>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <p class="text-xs font-bold text-slate-500 uppercase mb-1">Relevant Coursework:</p>
+                            <p class="text-sm text-slate-700">Corporate Finance, Financial Accounting, Business Economics, Investment Analysis</p>
+                        </div>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 mb-4">Projects</h2>
+                        
+                        <div class="mb-6">
+                            <h3 class="text-sm font-bold text-slate-900 mb-1 flex justify-between items-center flex-wrap gap-2">
+                                <span>1. Meredian – AI-Assisted Equity Research Platform</span>
+                                <span class="text-xs text-indigo-600 font-bold normal-case">Live Demo: Meredian</span>
+                            </h3>
+                            <ul class="list-disc list-outside ml-4 text-sm text-slate-700 space-y-1">
+                                <li>Designed and built a web-based equity analysis platform delivering company research, valuation insights, and financial data visualization for retail investors</li>
+                                <li>Owned end-to-end product direction — architecture, feature design, UI/UX workflow, testing, and deployment — using AI-assisted development tools to accelerate build velocity while directing every design and product decision</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="text-sm font-bold text-slate-900 mb-1">2. Equity Valuation – Infosys Ltd. (Three-Statement DCF Model)</h3>
+                            <ul class="list-disc list-outside ml-4 text-sm text-slate-700 space-y-1">
+                                <li>Built an integrated three-statement financial model (Income Statement, Balance Sheet, Cash Flow Statement) for Infosys (NSE), dynamically linking statements to drive an assumption-based DCF valuation</li>
+                                <li>Modelled scenario and sensitivity analysis across 6–10% revenue growth, 10% WACC, and 4% terminal growth assumptions, estimating intrinsic value of ₹1,319 (vs. ₹1,297 market price, ~1.7% variance) with a fair value range of ₹1,200–₹1,500</li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="text-sm font-bold text-slate-900 mb-1">3. Financial Statement Analysis – Wipro Ltd.</h3>
+                            <ul class="list-disc list-outside ml-4 text-sm text-slate-700 space-y-1">
+                                <li>Analysed FY21–FY23 financials via DuPont decomposition, identifying 29% ROE driven by an 18% net margin and conservative 0.09x D/E leverage (current ratio: 2.4x)</li>
+                                <li>Benchmarked ratios against IT sector averages; synthesized findings into a structured investment memo with a Hold recommendation supported by margin-trend and balance-sheet analysis</li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 mb-4">Skills</h2>
+                        <div class="space-y-2">
+                            <p class="text-sm text-slate-700"><span class="font-bold">Financial:</span> Financial Modelling, Three-Statement Modelling, DCF Valuation, Scenario & Sensitivity Analysis, Financial Statement Analysis, Ratio Analysis, Equity Research, Investment Analysis, Forecasting, Risk Assessment</p>
+                            <p class="text-sm text-slate-700"><span class="font-bold">Technical:</span> Microsoft Excel (Sensitivity Analysis, Data Visualization), GitHub</p>
+                        </div>
+                    </section>
+
+                    <section class="mb-8">
+                        <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 mb-4">Extracurriculars / Positions of Responsibility</h2>
+                        <div class="mb-4">
+                            <h3 class="text-sm font-bold text-slate-900 mb-1">Business Development Team, SAMARTHYA 2026 – Placement & Internship Forum (SCAPS), Jain University</h3>
+                            <p class="text-xs text-slate-500 font-bold mb-2 uppercase">2025 – Present</p>
+                            <ul class="list-disc list-outside ml-4 text-sm text-slate-700 space-y-1">
+                                <li>Sourced and cold-outreached finance companies for Jain's first-ever intra-college internship fair — 60 companies, ~1,000 student attendees across 2 days</li>
+                                <li>Managed on-spot registration and floor coordination throughout the event</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-1">2nd Runner-Up – Jain University Entrepreneurship Week</h3>
+                            <p class="text-sm text-slate-700 leading-relaxed">Recognized for entrepreneurial pitching and business strategy at the annual university-wide competition.</p>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider border-b border-slate-200 mb-4">Certifications</h2>
+                        <ul class="list-disc list-outside ml-4 text-sm text-slate-700 space-y-1">
+                            <li>BASICS OF STOCK MARKET – VARSITY BY ZERODHA</li>
+                            <li>TRADING IN STOCKS AND CURRENCIES – COURSERA</li>
+                            <li>MCKINSEY FORWARD PROGRAM – MCKINSEY & COMPANY</li>
+                            <li>CORPORATE FINANCIAL STATEMENT ANALYSIS (2023) – PROFESSIONAL COURSEWORK</li>
+                            <li>FINANCIAL ACCOUNTING FOUNDATIONS – FOUNDATIONAL SERIES</li>
+                            <li>READING CORPORATE FINANCIAL STATEMENTS – ANALYTICAL SERIES</li>
+                            <li>GUIDE TO UNDERSTANDING FINANCIAL STATEMENTS – VALUATION FRAMEWORKS</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        `;
+
+        // Render Function
+        function render() {
+            const root = document.getElementById('app-root');
+            const desktopNav = document.getElementById('desktop-nav');
+            const mobileNav = document.getElementById('mobile-nav');
+            
+            // Hide nav on resume page
+            const isResume = state.currentPath === '#/resume';
+            document.querySelector('nav').style.display = isResume ? 'none' : 'block';
+            document.querySelector('footer').style.display = isResume ? 'none' : 'block';
+            root.style.paddingTop = isResume ? '0' : '5rem';
+
+            // Render Nav Links
+            const linksHtml = navLinks.map(link => `
+                <a href="${link.path}" class="text-sm font-medium transition-colors hover:text-indigo-600 ${state.currentPath === link.path ? 'text-indigo-600' : 'text-slate-600'}">${link.name}</a>
+            `).join('');
+            
+            const mobileLinksHtml = navLinks.map(link => `
+                <a href="${link.path}" class="block text-lg font-medium ${state.currentPath === link.path ? 'text-indigo-600' : 'text-slate-600'}" onclick="toggleMobileMenu()">${link.name}</a>
+            `).join('');
+
+            desktopNav.innerHTML = linksHtml;
+            mobileNav.innerHTML = mobileLinksHtml;
+
+            // Render Page
+            switch(state.currentPath) {
+                case '#/': root.innerHTML = Home(); break;
+                case '#/about': root.innerHTML = About(); break;
+                case '#/projects': root.innerHTML = Projects(); break;
+                case '#/certifications': root.innerHTML = Certifications(); break;
+                case '#/achievements': root.innerHTML = Achievements(); break;
+                case '#/resume': root.innerHTML = Resume(); break;
+                case '#/certificate': root.innerHTML = Certificate(); break;
+                case '#/certificate-coursera': root.innerHTML = Certificate(); break;
+                default: root.innerHTML = Home();
+            }
+
+            // Initialize Lucide Icons
+            lucide.createIcons();
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobile-nav');
+            state.isMobileMenuOpen = !state.isMobileMenuOpen;
+            if (state.isMobileMenuOpen) {
+                mobileNav.classList.remove('hidden');
+            } else {
+                mobileNav.classList.add('hidden');
+            }
+        }
+
+        // Print Resume or notify if framed
+        function printResume() {
+            window.focus();
+            const isInIframe = (() => {
+                try {
+                    return window.self !== window.top;
+                } catch (e) {
+                    return true;
+                }
+            })();
+
+            if (isInIframe) {
+                const toastId = 'iframe-print-toast';
+                let toast = document.getElementById(toastId);
+                if (!toast) {
+                    toast = document.createElement('div');
+                    toast.id = toastId;
+                    toast.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-900 border border-slate-800 text-white px-6 py-4 rounded-2xl shadow-2xl flex flex-col gap-2 z-50 text-sm max-w-sm transition-all no-print animate-bounce';
+                    toast.innerHTML = `
+                        <div class="flex items-center gap-2 font-bold text-amber-400">
+                            <i data-lucide="alert-circle" size="18"></i>
+                            <span>Preview Mode Notice</span>
+                        </div>
+                        <p class="text-slate-300 text-xs leading-relaxed">
+                            Websites cannot trigger printing inside sandboxed preview frames. Please <strong>open this portfolio in a new tab</strong> (using the arrow/split icon at the top-right of your screen), then click "Save as PDF / Print" to save smoothly!
+                        </p>
+                        <button onclick="this.parentElement.remove()" class="mt-1 text-xs text-indigo-400 hover:text-indigo-300 font-bold self-end focus:outline-none cursor-pointer">Got it</button>
+                    `;
+                    document.body.appendChild(toast);
+                    lucide.createIcons();
+                }
+                try { window.print(); } catch (e) {}
+            } else {
+                window.print();
+            }
+        }
+
+        document.getElementById('mobile-menu-toggle').addEventListener('click', toggleMobileMenu);
+
+        // Init
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        render();
+    </script>
+</body>
+</html>
