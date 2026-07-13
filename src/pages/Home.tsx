@@ -125,8 +125,10 @@ export default function Home() {
               <ArrowRight size={13} className="ml-2" />
             </Link>
             <a
-              href="/  Ansh Nimesh Shah.pdf"
-              download="  Ansh Nimesh Shah.pdf"
+              href="/  
+              "
+              download="  
+              "
               className="inline-flex items-center px-5 py-3 bg-white border border-stone-300 text-stone-800 hover:bg-stone-50 transition-all font-mono text-xs font-bold tracking-wider"
             >
               DOWNLOAD RESUME
@@ -767,8 +769,15 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 text-left font-mono">
             {/* 1. Download Resume */}
             <a 
-              href="/ Ansh Nimesh Shah.pdf"
-              download="Ansh_Nimesh_Shah_Resume.pdf"
+              href="/
+              
+              "
+              download="
+              
+              
+      
+      
+              "
               className="bg-stone-50 border border-stone-200 p-5 hover:border-amber-850 hover:bg-amber-50/25 transition-all flex flex-col justify-between space-y-4 group shadow-sm"
             >
               <div className="space-y-1">
