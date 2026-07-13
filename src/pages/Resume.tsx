@@ -34,8 +34,8 @@ export default function Resume() {
         </Link>
         <div className="flex items-center gap-2">
           <a 
-            href="/  Ansh Nimesh Shah.pdf" 
-            download="  Ansh Nimesh Shah.pdf"
+            href="/  resume.pdf" 
+            download="  resume.pdf"
             className="flex items-center gap-2 px-5 py-2.5 bg-white border border-stone-300 text-stone-800 hover:bg-stone-50 transition-all font-mono text-[11px] font-bold tracking-wider"
           >
             <Download size={12} /> DOWNLOAD PDF
