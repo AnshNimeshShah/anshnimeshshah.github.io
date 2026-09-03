@@ -25,9 +25,8 @@ export default function About() {
       period: '2025 - Present',
       location: 'Bengaluru, India',
       details: [
-        'Sourced and managed cold-outreach to premium finance organizations for Jain University\'s flagship intra-college internship fair, directly pitching strategic candidate profiles to hiring managers.',
-        'Successfully onboarded and coordinated communication with 60+ partner corporations, aligning schedules with ~1,000 candidate registrants across a 2-day on-site event.',
-        'Led floor logistics, student registrations, and on-spot interview cycles, ensuring flawless professional compliance.'
+        'Conducted outreach to 100+ companies while supporting internship and placement initiatives at Jain University.',
+        'Supported on-spot registration and floor coordination during SAMARTHYA 2026 – Placement & Internship Forum.'
       ],
       icon: <Briefcase size={12} className="text-amber-800" />
     },
@@ -39,8 +38,8 @@ export default function About() {
       period: '2025 - Present',
       location: 'Bengaluru, India',
       details: [
-        'Advanced strategic curriculum covering corporate financial forecasting, mathematical modeling, statement analysis, capital budgeting, and market structures.',
-        'Active competitor in institutional valuation challenges and strategic case workshops.'
+        'Cumulative GPA: 7.4.',
+        'Relevant coursework: Corporate Finance, Financial Accounting, Business Economics, and Investment Analysis.'
       ],
       icon: <GraduationCap size={12} className="text-stone-800" />
     }
@@ -70,33 +69,26 @@ export default function About() {
   ];
 
   const skills = [
-    { 
-      category: 'FINANCIAL SPECIALIZATIONS', 
+    {
+      category: 'FINANCIAL',
       items: [
-        'Financial Modelling', 
-        'DCF Valuation', 
-        'Financial Statement Analysis', 
-        'Ratio Analysis', 
-        'DuPont Analysis', 
-        'Scenario Analysis', 
-        'Sensitivity Analysis'
-      ] 
-    },
-    { 
-      category: 'CORE TOOLS & PLATFORMS', 
-      items: [
-        'Microsoft Excel (Pivots, Analysis ToolPak)', 
-        'Microsoft PowerPoint', 
-        'Version Control',
-        'Web Design Layouts'
-      ] 
+        'Financial Modelling',
+        'Three-Statement Modelling',
+        'DCF Valuation',
+        'Scenario & Sensitivity Analysis',
+        'Financial Statement Analysis',
+        'Ratio Analysis',
+        'Equity Research',
+        'Investment Analysis',
+        'Forecasting',
+        'Risk Assessment'
+      ]
     },
     {
-      category: 'PRODUCTIVITY & AI SUPPORT',
+      category: 'TECHNICAL',
       items: [
-        'Gemini API Integrations', 
-        'Prompt Optimization', 
-        'Workflow Automation'
+        'Microsoft Excel (Sensitivity Analysis, Data Visualization)',
+        'Basic Python'
       ]
     }
   ];
@@ -105,7 +97,7 @@ export default function About() {
     <div className="section-padding space-y-16 pb-28 text-stone-900 font-sans">
       {/* Header */}
       <header className="mb-16 text-left max-w-4xl space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-sm text-amber-850 text-[10px] font-mono font-bold tracking-wider uppercase">
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-sm text-amber-800 text-[10px] font-mono font-bold tracking-wider uppercase">
           <Compass size={12} />
           FINANCE PROFILE
         </div>
@@ -128,7 +120,7 @@ export default function About() {
             </h2>
             <div className="text-stone-700 space-y-5 text-sm leading-relaxed font-serif">
               <p>
-                I am a final-year <strong className="text-stone-900 font-bold">B.Com (Honours) Strategic Finance</strong> undergraduate at Jain University, Bengaluru. I have always been fascinated by how businesses are valued and how capital is allocated. My focus is on understanding the real drivers behind a company's financial performance by analyzing corporate reports and building practical financial models.
+                I am a second-year <strong className="text-stone-900 font-bold">B.Com (Honours) Strategic Finance</strong> undergraduate at Jain University, Bengaluru. I have always been fascinated by how businesses are valued and how capital is allocated. My focus is on understanding the real drivers behind a company's financial performance by analyzing corporate reports and building practical financial models.
               </p>
               <p>
                 <strong>What Motivates Me:</strong> Rather than just looking at surface-level numbers, I enjoy diving into corporate financial statements to find the story behind them. I am particularly interested in how operational decisions impact a company's profitability, and how we can use quantitative models like Discounted Cash Flow (DCF) and DuPont analysis to uncover its true intrinsic value.
@@ -137,7 +129,7 @@ export default function About() {
                 <strong>Skills & Focus:</strong> I focus on building structured, reliable three-statement financial models, performing sensitivity analysis, and breaking down return on equity. To support this work, I make extensive use of Microsoft Excel for calculations and data organization, ensuring my models are clear, functional, and easy for teams to interpret.
               </p>
               <p>
-                <strong>Career Goals:</strong> I am actively seeking a summer internship or placement within <strong className="text-stone-900 font-bold">Equity Research, Investment Banking</strong>, or <strong className="text-stone-900 font-bold">Corporate Finance</strong> teams. I want to bring my analytical mindset and modelling skills to a team where I can contribute directly to company valuations, industry briefings, and investment analysis.
+                <strong>Career Goals:</strong> I am actively seeking internship opportunities within <strong className="text-stone-900 font-bold">Equity Research, Investment Banking</strong>, or <strong className="text-stone-900 font-bold">Corporate Finance</strong> teams. I want to bring my analytical mindset and modelling skills to a team where I can contribute directly to company valuations, industry briefings, and investment analysis.
               </p>
             </div>
           </section>
@@ -179,7 +171,7 @@ export default function About() {
                         {item.location}
                       </div>
 
-                      <ul className="space-y-2 text-xs text-stone-650 list-disc list-outside ml-4 border-t border-stone-100 pt-3 font-serif leading-relaxed">
+                      <ul className="space-y-2 text-xs text-stone-600 list-disc list-outside ml-4 border-t border-stone-100 pt-3 font-serif leading-relaxed">
                         {item.details.map((detail, index) => (
                           <li key={index}>{detail}</li>
                         ))}
@@ -266,7 +258,7 @@ export default function About() {
           <div className="bg-[#faf9f6] border border-stone-300 p-1 shadow-sm rounded-none">
             <div className="border border-stone-200 p-6 space-y-4">
               <Sparkles size={18} className="text-amber-800" />
-              <h4 className="text-[10px] font-mono font-bold tracking-widest text-amber-850 uppercase">Core Philosophy</h4>
+              <h4 className="text-[10px] font-mono font-bold tracking-widest text-amber-800 uppercase">Core Philosophy</h4>
               <p className="text-xs text-stone-700 leading-relaxed font-serif italic">
                 "Rigorous fundamental analysis and mathematical precision must always precede investment decisions. By analyzing historical cash conversions and decomposing DuPont ratios, we isolate the true, sustainable drivers of corporate value."
               </p>

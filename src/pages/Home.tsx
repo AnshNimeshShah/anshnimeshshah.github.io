@@ -25,9 +25,11 @@ import {
   Database,
   AlertCircle,
   Info,
-  Download
+  ExternalLink
 } from 'lucide-react';
 import { ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
+import { FEATURED_PROJECTS, ProjectDetail } from '../data/projectsData';
+import ProjectDetailModal from '../components/ProjectDetailModal';
 
 // Elegant editorial trend data
 const portfolioTrendData = [
@@ -48,6 +50,7 @@ const portfolioAllocation = [
 ];
 
 export default function Home() {
+  const [selectedModalProject, setSelectedModalProject] = useState<ProjectDetail | null>(null);
   const [activeMetricTab, setActiveMetricTab] = useState<'portfolio' | 'dupont' | 'dcf'>('portfolio');
   const [homeRevGrowth, setHomeRevGrowth] = useState<number>(8); // Range: 4 - 15%
   const [homeWacc, setHomeWacc] = useState<number>(10); // Range: 8 - 15%
@@ -68,6 +71,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-stone-50 pb-24 text-stone-900 font-sans">
+      
+      {/* Project Detail Modal */}
+      <ProjectDetailModal 
+        project={selectedModalProject}
+        isOpen={!!selectedModalProject}
+        onClose={() => setSelectedModalProject(null)}
+      />
+
       {/* Editorial Header Bar (Classic Press Style) */}
       <div className="bg-[#1c1917] text-[#f5f5f4] py-3.5 px-6 md:px-12 border-b border-stone-800 text-[10px] font-mono tracking-wider z-20 relative">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
@@ -90,7 +101,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="section-padding relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-16 items-center pt-12 md:pt-20">
         <div className="lg:col-span-7 space-y-6 text-left relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-sm text-amber-850 text-[11px] font-mono font-bold tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-sm text-amber-800 text-[11px] font-mono font-bold tracking-wider uppercase">
             <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
             SEEKING FINANCE INTERNSHIP
           </div>
@@ -112,8 +123,8 @@ export default function Home() {
             <span>Equity Research</span>
           </div>
 
-          <p className="text-base text-stone-750 leading-relaxed max-w-2xl font-serif">
-            Ambitious strategic finance student and CFA Aspirant. Specializing in integrated three-statement corporate forecasting, multi-scenario discounted cash flow (DCF) sensitivity models, and DuPont profitability deconstruction.
+          <p className="text-base text-stone-700 leading-relaxed max-w-2xl font-serif">
+            Second-year B.Com (Honours) Strategic Finance student focused on equity research, valuation, financial statement analysis, and practical financial modelling.
           </p>
 
           <div className="flex flex-wrap gap-3 pt-3">
@@ -125,11 +136,13 @@ export default function Home() {
               <ArrowRight size={13} className="ml-2" />
             </Link>
             <a
-              href="/resume.pdf"
-              download="resume.pdf"
+              href="/Ansh Nimesh Shah CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Ansh Nimesh Shah CV.pdf"
               className="inline-flex items-center px-5 py-3 bg-white border border-stone-300 text-stone-800 hover:bg-stone-50 transition-all font-mono text-xs font-bold tracking-wider"
             >
-              DOWNLOAD RESUME
+              VIEW CV
             </a>
             <a
               href="#contact-section"
@@ -151,7 +164,7 @@ export default function Home() {
           {/* Core Institutional Stats Bar */}
           <div className="grid grid-cols-3 gap-8 pt-6 border-t border-stone-200/80 max-w-lg">
             <div>
-              <div className="text-2xl font-serif font-bold text-stone-900">5</div>
+              <div className="text-2xl font-serif font-bold text-stone-900">7</div>
               <div className="text-[10px] text-stone-500 font-mono font-bold tracking-wider uppercase mt-1">Finance Projects</div>
             </div>
             <div>
@@ -264,7 +277,7 @@ export default function Home() {
                     <div className="flex justify-between items-end">
                       <div>
                         <span className="text-[9px] font-mono text-stone-400 tracking-wider uppercase block">DECOMPOSED ROE STRUCTURE</span>
-                        <p className="text-xl font-serif font-bold text-stone-900">ROE: 29.0%</p>
+                        <p className="text-xl font-serif font-bold text-stone-900">ROE: 14.92%</p>
                       </div>
                       <span className="text-[10px] font-mono font-bold text-stone-500">Wipro Limited</span>
                     </div>
@@ -273,19 +286,19 @@ export default function Home() {
                     <div className="grid grid-cols-3 gap-2 text-center pt-3 text-[10px] font-mono">
                       <div className="bg-stone-50 p-2.5 border border-stone-200">
                         <span className="text-stone-400 block text-[8px] tracking-wider mb-1">NET MARGIN</span>
-                        <span className="font-bold text-stone-800">18.0%</span>
+                        <span className="font-bold text-stone-800">12.38%</span>
                       </div>
                       <div className="bg-stone-50 p-2.5 border border-stone-200">
                         <span className="text-stone-400 block text-[8px] tracking-wider mb-1">ASSET VELOCITY</span>
-                        <span className="font-bold text-stone-800">1.48x</span>
+                        <span className="font-bold text-stone-800">0.77x</span>
                       </div>
                       <div className="bg-stone-50 p-2.5 border border-stone-200">
                         <span className="text-stone-400 block text-[8px] tracking-wider mb-1">LEVERAGE MULTIPLIER</span>
-                        <span className="font-bold text-stone-800">1.09x</span>
+                        <span className="font-bold text-stone-800">1.57x</span>
                       </div>
                     </div>
                     <p className="text-[9px] text-stone-400 font-serif italic text-center">
-                      "Demonstrates high operational profit conversion as the anchor of asset efficiency."
+                      "FY24 DuPont components shown from the current Wipro analysis."
                     </p>
                   </div>
                 )}
@@ -350,7 +363,7 @@ export default function Home() {
             {/* Item 1 */}
             <div className="flex items-center gap-4.5 p-2 md:px-6">
               <div className="w-10 h-10 bg-amber-50 border border-amber-200/50 flex items-center justify-center shrink-0">
-                <GraduationCap size={18} className="text-amber-850" />
+                <GraduationCap size={18} className="text-amber-800" />
               </div>
               <div>
                 <p className="text-[10px] font-mono font-bold text-stone-400 tracking-wider uppercase leading-tight">ACADEMICS</p>
@@ -362,7 +375,7 @@ export default function Home() {
             {/* Item 2 */}
             <div className="flex items-center gap-4.5 p-2 md:px-6">
               <div className="w-10 h-10 bg-amber-50 border border-amber-200/50 flex items-center justify-center shrink-0">
-                <Award size={18} className="text-amber-850" />
+                <Award size={18} className="text-amber-800" />
               </div>
               <div>
                 <p className="text-[10px] font-mono font-bold text-stone-400 tracking-wider uppercase leading-tight">GLOBAL PROSPECT</p>
@@ -374,7 +387,7 @@ export default function Home() {
             {/* Item 3 */}
             <div className="flex items-center gap-4.5 p-2 md:px-6">
               <div className="w-10 h-10 bg-amber-50 border border-amber-200/50 flex items-center justify-center shrink-0">
-                <TrendingUp size={18} className="text-amber-850" />
+                <TrendingUp size={18} className="text-amber-800" />
               </div>
               <div>
                 <p className="text-[10px] font-mono font-bold text-stone-400 tracking-wider uppercase leading-tight">GLOBAL PROGRAM</p>
@@ -385,7 +398,7 @@ export default function Home() {
             {/* Item 4 */}
             <div className="flex items-center gap-4.5 p-2 md:px-6">
               <div className="w-10 h-10 bg-amber-50 border border-amber-200/50 flex items-center justify-center shrink-0">
-                <BarChart3 size={18} className="text-amber-850" />
+                <BarChart3 size={18} className="text-amber-800" />
               </div>
               <div>
                 <p className="text-[10px] font-mono font-bold text-stone-400 tracking-wider uppercase leading-tight">FINANCIAL ANALYTICS</p>
@@ -415,7 +428,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="flex items-center gap-3">
             <div className="w-6 h-px bg-amber-800" />
-            <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-amber-850">The Core Investment Thesis</h2>
+            <h2 className="text-[11px] font-mono font-bold uppercase tracking-widest text-amber-800">The Core Investment Thesis</h2>
           </div>
           
           <div className="relative">
@@ -437,35 +450,112 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Case Study Section */}
+      {/* Homepage Projects Showcase in Exact Order */}
       <section className="bg-stone-50 border-b border-stone-200 py-20 px-6 md:px-12 relative z-10 text-left">
-        <div className="max-w-6xl mx-auto space-y-12">
+        <div className="max-w-6xl mx-auto space-y-16">
           
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-stone-200 pb-6">
             <div className="space-y-2">
-              <span className="text-[10px] font-mono font-bold text-amber-800 uppercase tracking-widest block">FEATURED EQUITY RESEARCH</span>
-              <h3 className="text-3xl font-serif font-bold text-stone-900">Infosys Ltd. Valuation Case Study</h3>
-              <p className="text-stone-650 text-xs font-serif italic">
-                A rigorous, multi-scenario Discounted Cash Flow (DCF) model and corporate statement analysis.
+              <span className="text-[10px] font-mono font-bold text-amber-800 uppercase tracking-widest block">
+                CURATED FINANCIAL WORKSPACES & RESEARCH
+              </span>
+              <h3 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900">
+                Featured Projects & Case Studies
+              </h3>
+              <p className="text-stone-600 text-xs sm:text-sm font-serif italic">
+                Analytical models, equity valuations, and academic research presented as a practical finance portfolio.
               </p>
             </div>
             <Link 
               to="/projects"
               className="inline-flex items-center px-5 py-3 bg-stone-900 text-stone-100 hover:bg-stone-800 text-[11px] font-mono font-bold tracking-wider transition-colors shrink-0"
             >
-              READ FULL CASE STUDY
+              EXPLORE ALL PROJECTS
               <ArrowRight size={13} className="ml-2" />
             </Link>
           </div>
 
+          {/* 1. Meredian - AI-Assisted Equity Research Platform */}
+          <div className="bg-white border border-stone-300 shadow-sm overflow-hidden p-1 grid grid-cols-1 lg:grid-cols-12 gap-1">
+            <div className="lg:col-span-5 bg-[#faf9f6] border border-stone-200 p-8 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="flex justify-between items-center border-b border-stone-200 pb-3">
+                  <span className="text-[9px] font-mono text-stone-500 tracking-wider uppercase font-bold">PROJECT I • WORKSPACE</span>
+                  <span className="px-2 py-0.5 border border-emerald-800/40 text-emerald-800 bg-emerald-50 font-mono text-[8px] uppercase font-bold">LIVE PLATFORM</span>
+                </div>
+                <div className="space-y-1">
+                  <span className="text-[10px] font-mono text-stone-400 tracking-widest block uppercase">RESEARCH ENGINE</span>
+                  <div className="text-2xl font-serif font-bold text-stone-900">Meredian Platform</div>
+                  <p className="text-xs font-serif italic text-stone-600">
+                    Fundamental research workspace unifying company metrics, valuation models, reports, and AI query assistance.
+                  </p>
+                </div>
+                <div className="pt-2 border-t border-stone-200 space-y-2 text-xs font-serif text-stone-700">
+                  <p><strong>Contribution:</strong> Product direction, finance logic, feature design, workflow, testing, validation, and deployment.</p>
+                  <p><strong>Development:</strong> AI-assisted development tools used for accelerated execution while retaining ownership of all financial decisions.</p>
+                </div>
+              </div>
+              <div className="pt-6 border-t border-stone-200 flex justify-between items-center text-[10px] font-mono text-stone-400">
+                <span>AI-ASSISTED DEVELOPMENT</span>
+                <span>LIVE ON LOVABLE</span>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 p-8 md:p-10 flex flex-col justify-between space-y-6 bg-white">
+              <div className="space-y-4">
+                <div>
+                  <span className="text-[9px] font-mono font-bold tracking-widest uppercase text-stone-400">EQUITY RESEARCH & VALUATION</span>
+                  <h4 className="text-2xl font-serif font-bold text-stone-900 mt-0.5">
+                    Meredian – AI-Assisted Equity Research Platform
+                  </h4>
+                  <p className="text-xs font-mono font-semibold text-amber-800 uppercase tracking-wider mt-1">
+                    Web-Based Fundamental Research & Valuation Workspace
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {['Equity Research', 'Valuation', 'Financial Modelling', 'AI Tools', 'Web Platform'].map(tag => (
+                    <span key={tag} className="px-2 py-0.5 bg-stone-50 border border-stone-200 text-stone-600 text-[10px] font-mono font-bold uppercase">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="text-stone-600 text-xs sm:text-sm font-serif leading-relaxed">
+                  A web-based equity research workspace designed to bring company research, financial metrics, valuation workflows, reports, and an AI research assistant into one place. Product capabilities include company/financial analysis, valuation-oriented workflows, structured reports, annual-report query support, and sensitivity thinking.
+                </p>
+              </div>
+
+              <div className="border-t border-stone-200 pt-5 flex flex-wrap items-center justify-between gap-4">
+                <div className="flex flex-wrap gap-2">
+                  <a 
+                    href="https://meredian-equityanalyzer.lovable.app" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-stone-900 text-white hover:bg-amber-800 text-xs font-mono font-bold tracking-wider transition-colors"
+                  >
+                    <ExternalLink size={13} />
+                    OPEN LIVE DEMO
+                  </a>
+                  <button 
+                    onClick={() => setSelectedModalProject(FEATURED_PROJECTS.find(p => p.id === 'meredian')!)}
+                    className="px-4 py-2.5 border border-stone-300 text-stone-700 hover:bg-stone-50 text-xs font-mono font-bold tracking-wider transition-colors"
+                  >
+                    VIEW CASE DETAILS
+                  </button>
+                </div>
+                <span className="text-[10px] font-mono text-stone-400">FULL SPECIFICATION</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Infosys Ltd. - Financial Model & Three-Statement DCF Valuation */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            
-            {/* Interactive Valuation Panel (Large Preview) */}
             <div className="lg:col-span-5 bg-[#faf9f6] border border-stone-200 p-8 flex flex-col justify-between">
               <div className="space-y-6">
                 <div className="flex justify-between items-center border-b border-stone-200 pb-3">
-                  <span className="text-[9px] font-mono text-stone-500 tracking-wider uppercase font-bold">DCF VALUATION SIMULATOR</span>
-                  <span className="px-2 py-0.5 border border-amber-800/40 text-amber-800 bg-amber-50 rounded-none font-mono text-[8px] uppercase font-bold">LIVE CALIBRATION</span>
+                  <span className="text-[9px] font-mono text-stone-500 tracking-wider uppercase font-bold">PROJECT II • DCF CALIBRATION</span>
+                  <span className="px-2 py-0.5 border border-amber-800/40 text-amber-800 bg-amber-50 rounded-none font-mono text-[8px] uppercase font-bold">INTERACTIVE</span>
                 </div>
 
                 <div className="space-y-1">
@@ -475,20 +565,19 @@ export default function Home() {
                     <span className="text-[10px] text-stone-400 font-mono">/ SHARE</span>
                   </div>
                   <div className="flex flex-wrap items-center gap-2 pt-2 text-xs font-serif italic text-stone-600">
-                    <span>Spot Price: ₹1,297</span>
+                    <span>Spot: ₹1,297</span>
                     <span>•</span>
-                    <span className={`font-bold font-mono text-xs ${homeIntrinsicPrice > homeMarketPrice ? 'text-emerald-850 font-semibold' : 'text-stone-650'}`}>
+                    <span className={`font-bold font-mono text-xs ${homeIntrinsicPrice > homeMarketPrice ? 'text-emerald-700 font-semibold' : 'text-stone-600'}`}>
                       {homeIntrinsicPrice > homeMarketPrice ? 'Undervalued' : 'Overvalued'} ({homeVariance}%)
                     </span>
                   </div>
                 </div>
 
-                {/* Interactive Sliders */}
-                <div className="space-y-5 pt-6 border-t border-stone-200">
-                  <div className="space-y-2">
+                <div className="space-y-4 pt-4 border-t border-stone-200">
+                  <div className="space-y-1.5">
                     <div className="flex justify-between text-xs font-mono">
-                      <span className="text-stone-500 font-bold">Revenue Growth Forecast:</span>
-                      <span className="text-amber-850 font-bold">{homeRevGrowth}%</span>
+                      <span className="text-stone-500 font-bold">Growth:</span>
+                      <span className="text-amber-800 font-bold">{homeRevGrowth}%</span>
                     </div>
                     <input 
                       type="range" 
@@ -498,16 +587,12 @@ export default function Home() {
                       onChange={(e) => setHomeRevGrowth(Number(e.target.value))}
                       className="w-full accent-amber-800 bg-stone-200 rounded-lg appearance-none h-1 cursor-pointer" 
                     />
-                    <div className="flex justify-between text-[9px] text-stone-400 font-mono">
-                      <span>Conservative (4%)</span>
-                      <span>Optimistic (15%)</span>
-                    </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <div className="flex justify-between text-xs font-mono">
-                      <span className="text-stone-500 font-bold">Capital Discount (WACC):</span>
-                      <span className="text-amber-850 font-bold">{homeWacc}%</span>
+                      <span className="text-stone-500 font-bold">WACC:</span>
+                      <span className="text-amber-800 font-bold">{homeWacc}%</span>
                     </div>
                     <input 
                       type="range" 
@@ -517,16 +602,12 @@ export default function Home() {
                       onChange={(e) => setHomeWacc(Number(e.target.value))}
                       className="w-full accent-amber-800 bg-stone-200 rounded-lg appearance-none h-1 cursor-pointer" 
                     />
-                    <div className="flex justify-between text-[9px] text-stone-400 font-mono">
-                      <span>Low Risk (8%)</span>
-                      <span>High Premium (15%)</span>
-                    </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <div className="flex justify-between text-xs font-mono">
-                      <span className="text-stone-500 font-bold">Terminal Growth Multiplier:</span>
-                      <span className="text-amber-850 font-bold">{homeTermGrowth}%</span>
+                      <span className="text-stone-500 font-bold">Terminal:</span>
+                      <span className="text-amber-800 font-bold">{homeTermGrowth}%</span>
                     </div>
                     <input 
                       type="range" 
@@ -536,101 +617,237 @@ export default function Home() {
                       onChange={(e) => setHomeTermGrowth(Number(e.target.value))}
                       className="w-full accent-amber-800 bg-stone-200 rounded-lg appearance-none h-1 cursor-pointer" 
                     />
-                    <div className="flex justify-between text-[9px] text-stone-400 font-mono">
-                      <span>Inflationary (2%)</span>
-                      <span>Aggressive (6%)</span>
-                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-stone-200 flex items-center gap-2 text-[10px] text-stone-400 font-mono leading-relaxed mt-6">
-                <Info size={12} className="text-stone-400 shrink-0" />
-                <p>Recalculates intrinsic value using discount rate sensitivity. Use sliders to stress-test.</p>
+              <div className="pt-6 border-t border-stone-200 text-[10px] text-stone-400 font-mono">
+                Historical performance modeled through FY29E
               </div>
             </div>
 
-            {/* Strategic Details & Key Findings */}
             <div className="lg:col-span-7 border border-stone-200 p-8 flex flex-col justify-between bg-white text-stone-900">
-              <div className="space-y-6">
-                <div className="flex justify-between items-center border-b border-stone-200 pb-3">
-                  <span className="text-[9px] font-mono tracking-widest text-stone-400 font-bold block">CASE SYNOPSIS</span>
-                  <span className="text-[9px] font-mono font-bold text-stone-400">INDEX I</span>
+              <div className="space-y-5">
+                <div>
+                  <span className="text-[9px] font-mono tracking-widest text-stone-400 font-bold block uppercase">EQUITY RESEARCH & VALUATION</span>
+                  <h4 className="text-2xl font-serif font-bold text-stone-900 mt-1">
+                    Infosys Ltd. – Financial Model & Three-Statement DCF Valuation
+                  </h4>
+                  <p className="text-xs font-mono font-semibold text-amber-800 uppercase tracking-wider mt-1">
+                    Linked Forecasting, Margin Scenarios & Intrinsic Enterprise Value
+                  </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-serif">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-mono text-amber-850 font-bold tracking-wider block uppercase">Overview</span>
-                    <p className="text-stone-600 leading-relaxed">
-                      Evaluates the intrinsic valuation of Infosys Ltd. utilizing a dynamically linked 10-year three-statement financial model to project long-term cash generation margins and test capital resilience.
-                    </p>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-mono text-amber-850 font-bold tracking-wider block uppercase">Problem Statement</span>
-                    <p className="text-stone-600 leading-relaxed">
-                      Public equity markets frequently misprice enterprise assets due to transient macro sector head-winds. Analysts require a rigorous capital-discounting model to isolate underlying cash efficiency.
-                    </p>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-mono text-amber-850 font-bold tracking-wider block uppercase">Methodology</span>
-                    <p className="text-stone-600 leading-relaxed">
-                      Synthesized an integrated 10-year model linking P&L, Balance Sheet, and Cash Flow Statements. Derived WACC indicators using CAPM based on beta trends from the National Stock Exchange (NSE).
-                    </p>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-mono text-amber-850 font-bold tracking-wider block uppercase">Key Findings</span>
-                    <p className="text-stone-600 leading-relaxed">
-                      Discount rates act as the primary model sensitivity pivot. A slight 2% rise in WACC cuts the intrinsic valuation by ₹190/share, confirming that terminal value is highly dependent on discount assumptions.
-                    </p>
-                  </div>
-
-                  <div className="space-y-1 md:col-span-2 border-t border-stone-100 pt-3">
-                    <span className="text-[9px] font-mono text-amber-850 font-bold tracking-wider block uppercase mb-1">Skills Demonstrated</span>
-                    <div className="flex flex-wrap gap-1">
-                      {['10-Year FCFF Forecasting', 'Sensitivity Analysis', 'CAPM & WACC', 'Three-Statement Modeling', 'DuPont Decomposition'].map((skill) => (
-                        <span key={skill} className="px-2 py-0.5 bg-stone-50 border border-stone-200 text-stone-600 text-[10px] font-mono font-bold uppercase">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {['DCF', 'Financial Modelling', 'Excel', 'Valuation', 'Equity Research'].map(tag => (
+                    <span key={tag} className="px-2 py-0.5 bg-stone-50 border border-stone-200 text-stone-600 text-[10px] font-mono font-bold uppercase">
+                      {tag}
+                    </span>
+                  ))}
                 </div>
+
+                <p className="text-stone-600 text-xs sm:text-sm font-serif leading-relaxed">
+                  Excel-based company model combining historical analysis, projections, linked financial statements, and DCF valuation work. Built an integrated three-statement DCF valuation model with scenario and sensitivity analysis. Supporting workbook models Infosys historical performance and projections through FY29E. Forecast revenue, margins, balance-sheet items, and key financial ratios using linked assumptions and formula-driven projections.
+                </p>
               </div>
 
-              <div className="border-t border-stone-200 pt-6 mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="border-t border-stone-200 pt-5 mt-6 flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap gap-2">
-                  <Link 
-                    to="/projects"
-                    className="px-4 py-2 bg-stone-900 hover:bg-amber-800 text-stone-100 transition-colors font-mono text-[9px] font-bold tracking-wider uppercase"
+                  <button 
+                    onClick={() => setSelectedModalProject(FEATURED_PROJECTS.find(p => p.id === 'infosys')!)}
+                    className="px-4 py-2.5 bg-stone-900 text-white hover:bg-amber-800 font-mono text-[10px] font-bold tracking-wider uppercase transition-colors"
                   >
-                    READ ENTIRE CASE STUDY
-                  </Link>
-                  <a 
-                    href="/Infosys_Valuation_Report.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 border border-stone-300 hover:bg-stone-50 text-stone-700 transition-all font-mono text-[9px] font-bold tracking-wider uppercase flex items-center gap-1.5"
-                  >
-                    <Download size={10} />
-                    Valuation Report (PDF)
-                  </a>
-                  <a 
-                    href="/Infosys_10Yr_DCF_Model.xlsx"
-                    download
-                    className="px-4 py-2 border border-stone-300 hover:bg-stone-50 text-stone-700 transition-all font-mono text-[9px] font-bold tracking-wider uppercase flex items-center gap-1.5"
-                  >
-                    <Download size={10} />
-                    Excel DCF Model (.xlsx)
-                  </a>
+                    VIEW PROJECT DETAILS
+                  </button>
                 </div>
-                <div className="text-[9px] font-mono text-stone-400 font-bold uppercase text-right shrink-0">
-                  VERIFIED BY FACULTY
+                <span className="text-[10px] font-mono text-stone-400">VERIFIED SCHEDULE</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 3. Wipro Ltd. & 4. Portfolio Analytics (Side by Side) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            {/* 3. Wipro Ltd. */}
+            <div className="bg-white border border-stone-300 p-8 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="flex justify-between items-center border-b border-stone-200 pb-3">
+                  <span className="text-[9px] font-mono text-stone-400 font-bold uppercase tracking-wider">PROJECT III • RATIO AUDIT</span>
+                  <span className="px-2 py-0.5 bg-amber-50 border border-amber-200/60 text-amber-900 font-mono text-[8px] font-bold uppercase">HOLD VIEW</span>
+                </div>
+
+                <h4 className="text-xl font-serif font-bold text-stone-900 leading-snug">
+                  Wipro Ltd. – Financial Statement Analysis & Investment Memo
+                </h4>
+
+                <div className="flex flex-wrap gap-1">
+                  {['Financial Statement Analysis', 'DuPont', 'Ratio Analysis', 'Equity Research', 'Excel'].map(tag => (
+                    <span key={tag} className="px-1.5 py-0.5 bg-stone-50 border border-stone-200 text-stone-600 text-[9px] font-mono font-bold uppercase">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="text-stone-600 text-xs sm:text-sm font-serif leading-relaxed">
+                  A FY22–FY24 financial analysis of Wipro using ratios, DuPont decomposition, trend analysis, peer benchmarking against TCS, Infosys, and HCLTech, and an investment memo. Developed a Hold view based on strong financial stability and liquidity alongside weaker profitability and shareholder returns.
+                </p>
+
+                <div className="bg-[#faf9f6] p-3 border border-stone-200 text-xs font-serif text-stone-700">
+                  <span className="text-[9px] font-mono text-amber-800 font-bold uppercase block mb-1">DuPont Deconstructed ROE: 14.92%</span>
+                  <p>Net Margin (12.38%) × Asset Turnover (0.77x) × Equity Multiplier (1.57x)</p>
                 </div>
               </div>
 
+              <div className="border-t border-stone-200 pt-4 flex flex-wrap items-center justify-between gap-3">
+                <button
+                  onClick={() => setSelectedModalProject(FEATURED_PROJECTS.find(p => p.id === 'wipro')!)}
+                  className="text-xs font-mono font-bold text-amber-800 hover:text-stone-900 inline-flex items-center gap-1 uppercase"
+                >
+                  VIEW CASE DETAILS <ChevronRight size={13} />
+                </button>
+              </div>
+            </div>
+
+            {/* 4. Portfolio Analytics Dashboard */}
+            <div className="bg-white border border-stone-300 p-8 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="flex justify-between items-center border-b border-stone-200 pb-3">
+                  <span className="text-[9px] font-mono text-stone-400 font-bold uppercase tracking-wider">PROJECT IV • PORTFOLIO</span>
+                  <span className="px-2 py-0.5 bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[8px] font-bold uppercase">15 EQUITIES</span>
+                </div>
+
+                <h4 className="text-xl font-serif font-bold text-stone-900 leading-snug">
+                  Indian Equity Portfolio Analytics Dashboard
+                </h4>
+
+                <div className="flex flex-wrap gap-1">
+                  {['Portfolio Analytics', 'Excel', 'Financial Modelling', 'Risk Management'].map(tag => (
+                    <span key={tag} className="px-1.5 py-0.5 bg-stone-50 border border-stone-200 text-stone-600 text-[9px] font-mono font-bold uppercase">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="text-stone-600 text-xs sm:text-sm font-serif leading-relaxed">
+                  Formula-driven Excel portfolio dashboard for a 15-stock Indian equity portfolio with NIFTY 50 benchmarking. Tracks holdings, monthly prices, P&L, individual and portfolio returns, sector allocation, and benchmark-relative performance. Built spreadsheet logic and calculations in Excel; AI used only for visual polish.
+                </p>
+
+                <div className="bg-[#faf9f6] p-3 border border-stone-200 text-xs font-serif text-stone-700">
+                  <span className="text-[9px] font-mono text-amber-800 font-bold uppercase block mb-1">Performance Track</span>
+                  <p>Illustrative simulated display: 12.4% CAGR versus a 10.2% NIFTY 50 reference, shown only to demonstrate the dashboard workflow.</p>
+                </div>
+              </div>
+
+              <div className="border-t border-stone-200 pt-4 flex flex-wrap items-center justify-between gap-3">
+                <button
+                  onClick={() => setSelectedModalProject(FEATURED_PROJECTS.find(p => p.id === 'portfolio-analytics')!)}
+                  className="text-xs font-mono font-bold text-amber-800 hover:text-stone-900 inline-flex items-center gap-1 uppercase"
+                >
+                  VIEW CASE DETAILS <ChevronRight size={13} />
+                </button>
+                <span className="text-[10px] font-mono text-stone-400">EXCEL SPREADSHEET</span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* 5. Behavioural Biases, 6. Monaco Fixed Income, 7. Derivatives (3-Column Grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            {/* 5. Behavioural Biases */}
+            <div className="bg-white border border-stone-300 p-6 flex flex-col justify-between space-y-4 hover:border-stone-400 transition-all">
+              <div className="space-y-3">
+                <div className="flex justify-between items-center border-b border-stone-200 pb-2">
+                  <span className="text-[9px] font-mono text-amber-800 font-bold uppercase">PROJECT V</span>
+                  <span className="px-1.5 py-0.5 bg-stone-100 text-stone-600 font-mono text-[8px] font-bold uppercase">ACADEMIC GROUP</span>
+                </div>
+                <h4 className="text-base font-serif font-bold text-stone-900 leading-snug">
+                  Behavioural Biases in Young Indian Investors
+                </h4>
+                <div className="flex flex-wrap gap-1">
+                  {['Behavioural Finance', 'Equity Research', 'Risk Management'].map(tag => (
+                    <span key={tag} className="px-1.5 py-0.2 bg-stone-50 border border-stone-200 text-stone-600 text-[9px] font-mono uppercase">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-stone-600 text-xs font-serif leading-relaxed">
+                  Longitudinal behavioural finance study examining how biases evolve with experience. Based on 18 semi-structured interviews across retail investors and market professionals.
+                </p>
+              </div>
+              <div className="pt-3 border-t border-stone-200 flex justify-between items-center">
+                <button
+                  onClick={() => setSelectedModalProject(FEATURED_PROJECTS.find(p => p.id === 'behavioural-finance')!)}
+                  className="text-xs font-mono font-bold text-amber-800 hover:text-stone-900 inline-flex items-center gap-1 uppercase"
+                >
+                  DETAILS <ChevronRight size={12} />
+                </button>
+                <span className="text-[9px] font-mono text-stone-400">18 INTERVIEWS</span>
+              </div>
+            </div>
+
+            {/* 6. Monaco Fixed Income */}
+            <div className="bg-white border border-stone-300 p-6 flex flex-col justify-between space-y-4 hover:border-stone-400 transition-all">
+              <div className="space-y-3">
+                <div className="flex justify-between items-center border-b border-stone-200 pb-2">
+                  <span className="text-[9px] font-mono text-amber-800 font-bold uppercase">PROJECT VI</span>
+                  <span className="px-1.5 py-0.5 bg-stone-100 text-stone-600 font-mono text-[8px] font-bold uppercase">ACADEMIC PROJECT</span>
+                </div>
+                <h4 className="text-base font-serif font-bold text-stone-900 leading-snug">
+                  Bond Valuation & Fixed-Income Risk – Monaco
+                </h4>
+                <div className="flex flex-wrap gap-1">
+                  {['Fixed Income', 'Risk Management', 'Financial Modelling'].map(tag => (
+                    <span key={tag} className="px-1.5 py-0.2 bg-stone-50 border border-stone-200 text-stone-600 text-[9px] font-mono uppercase">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-stone-600 text-xs font-serif leading-relaxed">
+                  Fixed-income study covering Eurozone debt integration, bond cash flow pricing, yield curves, duration, convexity, and securitised instruments (ABS, MBS, covered bonds).
+                </p>
+              </div>
+              <div className="pt-3 border-t border-stone-200 flex justify-between items-center">
+                <button
+                  onClick={() => setSelectedModalProject(FEATURED_PROJECTS.find(p => p.id === 'monaco-fixed-income')!)}
+                  className="text-xs font-mono font-bold text-amber-800 hover:text-stone-900 inline-flex items-center gap-1 uppercase"
+                >
+                  DETAILS <ChevronRight size={12} />
+                </button>
+                <span className="text-[9px] font-mono text-stone-400">EUROZONE DEBT</span>
+              </div>
+            </div>
+
+            {/* 7. Derivatives in the Real World */}
+            <div className="bg-white border border-stone-300 p-6 flex flex-col justify-between space-y-4 hover:border-stone-400 transition-all">
+              <div className="space-y-3">
+                <div className="flex justify-between items-center border-b border-stone-200 pb-2">
+                  <span className="text-[9px] font-mono text-amber-800 font-bold uppercase">PROJECT VII</span>
+                  <span className="px-1.5 py-0.5 bg-stone-100 text-stone-600 font-mono text-[8px] font-bold uppercase">ACADEMIC GROUP</span>
+                </div>
+                <h4 className="text-base font-serif font-bold text-stone-900 leading-snug">
+                  Derivatives in the Real World
+                </h4>
+                <div className="flex flex-wrap gap-1">
+                  {['Derivatives', 'Risk Management', 'Financial Modelling'].map(tag => (
+                    <span key={tag} className="px-1.5 py-0.2 bg-stone-50 border border-stone-200 text-stone-600 text-[9px] font-mono uppercase">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-stone-600 text-xs font-serif leading-relaxed">
+                  Five real-world derivative hedging applications across currency, rates, commodities, credit, and equity, featuring TCS currency hedges and Reliance Industries swaps.
+                </p>
+              </div>
+              <div className="pt-3 border-t border-stone-200 flex justify-between items-center">
+                <button
+                  onClick={() => setSelectedModalProject(FEATURED_PROJECTS.find(p => p.id === 'derivatives-real-world')!)}
+                  className="text-xs font-mono font-bold text-amber-800 hover:text-stone-900 inline-flex items-center gap-1 uppercase"
+                >
+                  DETAILS <ChevronRight size={12} />
+                </button>
+                <span className="text-[9px] font-mono text-stone-400">5 HEDGES</span>
+              </div>
             </div>
 
           </div>
@@ -716,7 +933,7 @@ export default function Home() {
             <span className="text-[10px] font-mono font-bold text-stone-500 uppercase tracking-widest block">VERIFIED STATUS</span>
             <h3 className="text-2xl font-serif font-bold text-stone-900">Professional Auditing Credentials</h3>
             <p className="text-xs text-stone-600 leading-relaxed">
-              Academic and strategic accreditations awarded by McKinsey & Company, Varsity, and premium financial institutions.
+              Finance, accounting, market, and professional-development credentials listed with the available supporting certificates.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -765,18 +982,20 @@ export default function Home() {
           <div className="h-px bg-stone-200 w-32 mx-auto"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 text-left font-mono">
-            {/* 1. Download Resume */}
+            {/* 1. View CV */}
             <a 
-              href="/resume.pdf"
-              download="resume.pdf"
-              className="bg-stone-50 border border-stone-200 p-5 hover:border-amber-850 hover:bg-amber-50/25 transition-all flex flex-col justify-between space-y-4 group shadow-sm"
+              href="/Ansh Nimesh Shah CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Ansh Nimesh Shah CV.pdf"
+              className="bg-stone-50 border border-stone-200 p-5 hover:border-amber-800 hover:bg-amber-50/25 transition-all flex flex-col justify-between space-y-4 group shadow-sm"
             >
               <div className="space-y-1">
-                <span className="text-[9px] font-bold text-stone-400 uppercase tracking-widest block">DOWNLOAD PORTFOLIO RESUME</span>
-                <span className="text-xs font-bold text-stone-800 group-hover:text-amber-900 block">portfolio resume</span>
+                <span className="text-[9px] font-bold text-stone-400 uppercase tracking-widest block">CURRICULUM VITAE</span>
+                <span className="text-xs font-bold text-stone-800 group-hover:text-amber-900 block">Ansh Nimesh Shah CV</span>
               </div>
               <span className="text-[9px] font-bold text-amber-800 tracking-wider flex items-center gap-1 uppercase">
-                Download PDF <Download size={10} />
+                View CV <FileText size={10} />
               </span>
             </a>
 
@@ -785,7 +1004,7 @@ export default function Home() {
               href="https://mail.google.com/mail/?view=cm&fs=1&to=anshnshah1007@gmail.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-stone-50 border border-stone-200 p-5 hover:border-amber-850 hover:bg-amber-50/25 transition-all flex flex-col justify-between space-y-4 group shadow-sm"
+              className="bg-stone-50 border border-stone-200 p-5 hover:border-amber-800 hover:bg-amber-50/25 transition-all flex flex-col justify-between space-y-4 group shadow-sm"
             >
               <div className="space-y-1">
                 <span className="text-[9px] font-bold text-stone-400 uppercase tracking-widest block">DIRECT EMAIL INQUIRY</span>
@@ -801,7 +1020,7 @@ export default function Home() {
               href="https://www.linkedin.com/in/ansh-shah1/"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-stone-50 border border-stone-200 p-5 hover:border-amber-850 hover:bg-amber-50/25 transition-all flex flex-col justify-between space-y-4 group shadow-sm"
+              className="bg-stone-50 border border-stone-200 p-5 hover:border-amber-800 hover:bg-amber-50/25 transition-all flex flex-col justify-between space-y-4 group shadow-sm"
             >
               <div className="space-y-1">
                 <span className="text-[9px] font-bold text-stone-400 uppercase tracking-widest block">PROFESSIONAL NETWORK</span>
@@ -814,13 +1033,16 @@ export default function Home() {
           </div>
 
           <div className="pt-6">
-            <Link 
-              to="/resume"
+            <a 
+              href="/Ansh Nimesh Shah CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Ansh Nimesh Shah CV.pdf"
               className="inline-flex items-center px-8 py-4 bg-stone-900 text-stone-100 hover:bg-stone-800 transition-colors font-mono text-xs font-bold tracking-wider uppercase"
             >
-              VIEW COMPREHENSIVE ACADEMIC CV
+              VIEW CV (PDF)
               <ArrowRight size={14} className="ml-2.5" />
-            </Link>
+            </a>
           </div>
         </div>
       </section>

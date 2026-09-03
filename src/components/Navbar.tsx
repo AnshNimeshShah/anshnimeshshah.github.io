@@ -9,7 +9,7 @@ const navLinks = [
   { name: 'PROJECTS', path: '/projects' },
   { name: 'CERTIFICATIONS', path: '/certifications' },
   { name: 'ACHIEVEMENTS', path: '/achievements' },
-  { name: 'RESUME', path: '/resume' },
+  { name: 'VIEW CV', path: '/cv' },
 ];
 
 export default function Navbar() {
@@ -31,7 +31,7 @@ export default function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center md:space-x-3 lg:space-x-4 xl:space-x-6 shrink-0 whitespace-nowrap">
           {navLinks.map((link) => {
-            const isActive = location.pathname === link.path;
+            const isActive = location.pathname === link.path || (link.path === '/cv' && location.pathname === '/resume');
             return (
               <Link
                 key={link.path}
@@ -70,7 +70,7 @@ export default function Navbar() {
           className="md:hidden bg-stone-50 border-b border-stone-200 px-6 py-6 space-y-4"
         >
           {navLinks.map((link) => {
-            const isActive = location.pathname === link.path;
+            const isActive = location.pathname === link.path || (link.path === '/cv' && location.pathname === '/resume');
             return (
               <Link
                 key={link.path}

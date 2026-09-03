@@ -43,7 +43,7 @@ export default function Layout() {
               href="https://www.linkedin.com/in/ansh-shah1/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-stone-400 hover:text-amber-850 transition-colors font-mono text-xs font-bold tracking-wider uppercase"
+              className="text-stone-400 hover:text-amber-800 transition-colors font-mono text-xs font-bold tracking-wider uppercase"
             >
               LinkedIn
             </a>
